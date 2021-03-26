@@ -16,5 +16,6 @@ async function register(user) {
 
 module.exports = {
   register,
+  findById,
   findBy
 }

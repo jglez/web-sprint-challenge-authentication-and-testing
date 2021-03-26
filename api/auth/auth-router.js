@@ -54,7 +54,6 @@ router.post('/login', (req, res, next) => {
 
   // Check if the user is in the DB
   User.findBy({ username })
-    .first()
     // if truthy, user does exist
     .then(user => {
       // if user exists && password is good
