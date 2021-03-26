@@ -50,8 +50,22 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-  res.json('Login');
-  // NEEDS PAYLOAD
+  const { username, password } = req.body
+
+  // Check if the user is in the DB
+  User.findBy({ username })
+    .first()
+    // if truthy, user does exist
+    .then(user => {
+      // if user exists && password is good
+      if (user && bcrypt.compareSync(password, user.password)) {
+        req.session.user = user
+        res.json('Welcome back!')
+      } else {
+        res.json('Invalid credentials')
+      }
+    })
+    .catch(next)
 
   /*
     IMPLEMENT

@@ -1,6 +1,10 @@
 // Create model functions
 const db = require('../../data/dbConfig.js')
 
+function findBy(filter) {
+  return db('users').where(filter).orderBy('id')
+}
+
 function findById(id) {
   return db('users').where({ id }).first()
 }
@@ -11,5 +15,6 @@ async function register(user) {
 }
 
 module.exports = {
-  register
+  register,
+  findBy
 }
