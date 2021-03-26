@@ -1,7 +1,23 @@
+// AUTHENTICATION
 const router = require('express').Router();
+const bcrypt = require('bcryptjs')
 
-router.post('/register', (req, res) => {
-  res.end('implement register, please!');
+router.post('/register', (req, res, next) => {
+
+  // Pull username and password from request body
+  const { username, password } = req.body
+
+  // Hash the password
+  const hashedPassword = bcrypt.hashSync(password, 1)
+
+  // User for the DB
+  const user = { username, password: hashedPassword }
+
+  // Utilize model function
+
+  res.json('Register')
+
+
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -29,8 +45,10 @@ router.post('/register', (req, res) => {
   */
 });
 
-router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+router.post('/login', (req, res, next) => {
+  res.json('Login');
+  // NEEDS PAYLOAD
+
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.

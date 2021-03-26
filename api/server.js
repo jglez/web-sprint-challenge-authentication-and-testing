@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const session = require('express-session')
 
 const restrict = require('./middleware/restricted.js');
 
@@ -8,6 +9,19 @@ const authRouter = require('./auth/auth-router.js');
 const jokesRouter = require('./jokes/jokes-router.js');
 
 const server = express();
+
+// cookie config
+server.use(session({
+  name: 'dad-joke-cookie',
+  secret: 'falkensmaze',
+  cookie: {
+    maxAge: 1000 * 10000,
+    secure: false,
+    httpOnly: false
+  },
+  resave: false,
+  saveUninitialized: true
+}))
 
 server.use(helmet());
 server.use(cors());
