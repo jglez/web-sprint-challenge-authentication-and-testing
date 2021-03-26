@@ -1,6 +1,7 @@
 // AUTHENTICATION
 const router = require('express').Router();
 const bcrypt = require('bcryptjs')
+const User = require('../auth/../users/users-model.js')
 
 router.post('/register', (req, res, next) => {
 
@@ -14,8 +15,11 @@ router.post('/register', (req, res, next) => {
   const user = { username, password: hashedPassword }
 
   // Utilize model function
-
-  res.json('Register')
+  User.register(user)
+    .then(newUser => {
+      res.json(newUser)
+    })
+    .catch(next)
 
 
   /*
